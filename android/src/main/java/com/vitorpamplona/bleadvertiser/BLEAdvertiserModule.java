@@ -216,7 +216,7 @@ public class BLEAdvertiserModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void scanByService(String uid, ReadableMap options, Promise promise) {
-	if (uid == "") {
+	if (uid.equals("")) {
 		scan(null, null, options, promise);
 	} else {
         	scan(uid, null, options, promise);

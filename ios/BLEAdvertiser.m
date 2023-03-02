@@ -81,8 +81,14 @@ RCT_EXPORT_METHOD(scanByService: (NSString *)uid options:(NSDictionary *)options
         case CBManagerStateUnknown:      reject(@"Bluetooth not ON",@"Unknown", nil);       return;
         case CBManagerStateUnsupported:  reject(@"STATE_OFF",@"Unsupported", nil);          return;
     }
- 
-    [centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:uid]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey:[NSNumber numberWithBool:YES]}];
+    
+    if (uid != "") {
+        [centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:uid]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey:[NSNumber numberWithBool:YES]}];
+    } else {
+        // Pass an empty string to scan for all devices
+        // https://developer.apple.com/documentation/corebluetooth/cbcentralmanager/1518986-scanforperipherals#discussion
+        [centralManager scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:[NSNumber numberWithBool:YES]}];
+    }
 }
 
 

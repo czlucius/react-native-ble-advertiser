@@ -215,8 +215,12 @@ public class BLEAdvertiserModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-	public void scanByService(String uid, ReadableMap options, Promise promise) {
-        scan(uid, null, options, promise);
+    public void scanByService(String uid, ReadableMap options, Promise promise) {
+	if (uid == "") {
+		scan(null, null, options, promise);
+	} else {
+        	scan(uid, null, options, promise);
+	}
     }
 
     @ReactMethod
